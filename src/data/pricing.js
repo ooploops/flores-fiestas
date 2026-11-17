@@ -10,6 +10,7 @@ const withImage = (item) => ({ ...item, image: asset(item.image) });
 export const services = [
   { id: 'catering', name: 'Catering', blurb: 'Italian and Mexican menus, priced per person.', image: '/images/svc-catering.jpg', focus: '50% 50%' },
   { id: 'dessert', name: 'Dessert table', blurb: 'Pick your favorite sweets, priced per piece.', image: '/images/svc-dessert.jpg', focus: '40% 60%' },
+  { id: 'decor', name: 'Decor & tablescapes', blurb: 'Priced after we talk about your space.', image: '/images/svc-decor.jpg', focus: '60% 55%' },
 ].map(withImage);
 
 export const menus = [

@@ -1,6 +1,6 @@
-# Flores Fiestas
+# Flores Events
 
-An editorial single-page site for a boutique event styling and celebration business. Portfolio panels in this preview are CSS concept artwork, not photographs of completed Flores Fiestas events.
+An editorial single-page site for a catering, dessert table, and event decor business. Photos in this preview are stock placeholders, not photographs of completed Flores Events work.
 
 ## Run locally
 

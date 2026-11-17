@@ -2,8 +2,8 @@ import { asset } from './asset.js';
 
 export const siteContent = {
   brand: {
-    name: 'Flores Fiestas',
-    statement: 'Catering, desserts, and events.',
+    name: 'Flores Events',
+    statement: 'Catering, desserts, and decor.',
     email: '[Email address to be added]',
     phone: '[Phone number to be added]',
     social: '[Social profile to be added]',
@@ -14,15 +14,14 @@ export const siteContent = {
     { label: 'Services', href: '#services' },
     { label: 'Gallery', href: '#gallery' },
     { label: 'Our Process', href: '#process' },
-    { label: 'Get a Quote', href: '#quote' },
     { label: 'Contact', href: '#contact' },
   ],
   services: [
-    { number: '01', title: 'Dessert Tables', description: 'Dessert displays that become the centerpiece of your party.', note: 'A little sweetness, beautifully presented', image: '/images/svc-dessert.jpg', focus: '40% 60%' },
-    { number: '02', title: 'Candy & Treat Displays', description: 'Sweets and treats arranged to look as good as they taste.', note: 'Color, texture, and a touch of whimsy', image: '/images/svc-candy.jpg', focus: '50% 45%' },
-    { number: '03', title: 'Event Styling & Decor', description: 'Decor that turns any space into the setting for your event.', note: 'The atmosphere lives in the details', image: '/images/svc-decor.jpg', focus: '60% 55%' },
-    { number: '04', title: 'Tablescapes', description: 'Complete table settings for dinners and parties.', note: 'Made for lingering a little longer', image: '/images/svc-table.jpg', focus: '50% 70%' },
-    { number: '05', title: 'Catering', description: 'Food prepared and presented for your event.', note: 'A thoughtful welcome at every place', image: '/images/svc-catering.jpg', focus: '50% 50%' },
+    { number: '01', title: 'Dessert Tables', description: 'Dessert displays that become the centerpiece of your party.', note: 'A little sweetness, beautifully presented', image: '/images/svc-dessert.jpg', focus: '40% 60%', quote: 'dessert' },
+    { number: '02', title: 'Candy & Treat Displays', description: 'Sweets and treats arranged to look as good as they taste.', note: 'Color, texture, and a touch of whimsy', image: '/images/svc-candy.jpg', focus: '50% 45%', quote: 'dessert' },
+    { number: '03', title: 'Event Styling & Decor', description: 'Decor that turns any space into the setting for your event.', note: 'The atmosphere lives in the details', image: '/images/svc-decor.jpg', focus: '60% 55%', quote: 'decor' },
+    { number: '04', title: 'Tablescapes', description: 'Complete table settings for dinners and parties.', note: 'Made for lingering a little longer', image: '/images/svc-table.jpg', focus: '50% 70%', quote: 'decor' },
+    { number: '05', title: 'Catering', description: 'Food prepared and presented for your event.', note: 'A thoughtful welcome at every place', image: '/images/svc-catering.jpg', focus: '50% 50%', quote: 'catering' },
   ],
   gallery: [
     { title: 'Wedding table', detail: 'Tablescape', kind: 'wedding', shape: 'portrait', occasion: 'Wedding', image: '/images/wedding.jpg', focus: '55% 50%', alt: 'Round wedding table with tall white calla lilies, tulips, orchids and candles (stock photo placeholder)' },
@@ -33,8 +32,8 @@ export const siteContent = {
     { title: 'Place settings', detail: 'Details', kind: 'detail', shape: 'square', occasion: 'Other', image: '/images/detail.jpg', focus: '50% 62%', alt: 'Place settings with folded napkins and a white floral runner (stock photo placeholder)' },
   ],
   process: [
-    { number: '01', title: 'Tell us your plans', description: 'Share the occasion, the date, and your ideas.' },
-    { number: '02', title: 'We make a plan', description: 'We put together the styling, desserts, and food.' },
+    { number: '01', title: 'Build your plan', description: 'Pick your menu, desserts, and decor in our quote builder.' },
+    { number: '02', title: 'Confirm details', description: 'We review your plan with you and lock in the date and details.' },
     { number: '03', title: 'Enjoy your party', description: 'We set everything up so you can enjoy it.' },
   ],
   eventTypes: ['Baby shower', 'Birthday', 'Wedding', 'Quinceañera', 'Bridal shower', 'Graduation', 'Corporate event', 'Intimate gathering', 'Other'],

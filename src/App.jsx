@@ -48,8 +48,6 @@ export default function App() {
 
       gsap.to('.scroll-progress', { scaleX: 1, ease: 'none', scrollTrigger: { start: 0, end: 'max', scrub: 0.3 } });
 
-      // The horizontal desktop line draws left to right, the stacked mobile line top to bottom.
-      gsap.fromTo('.timeline-progress', desktop ? { scaleX: 0, scaleY: 1, transformOrigin: 'left center' } : { scaleY: 0, scaleX: 1, transformOrigin: 'top center' }, { scaleX: 1, scaleY: 1, ease: 'none', scrollTrigger: { trigger: '.process-steps', start: 'top 75%', end: 'bottom 60%', scrub: 0.6 } });
       gsap.utils.toArray('.process-step').forEach((step) => {
         ScrollTrigger.create({ trigger: step, start: 'top 72%', toggleClass: { targets: step, className: 'is-active' } });
       });

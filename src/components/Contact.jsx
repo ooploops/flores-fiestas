@@ -1,6 +1,7 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { ArrowRight, Check } from 'lucide-react';
 import { siteContent } from '../data/siteContent.js';
+import { openQuote } from '../data/quote.js';
 
 const emptyForm = { name: '', email: '', phone: '', eventType: '', eventDate: '', guestCount: '', message: '' };
 
@@ -8,14 +9,6 @@ export default function Contact() {
   const [values, setValues] = useState(emptyForm);
   const [errors, setErrors] = useState({});
   const [submitted, setSubmitted] = useState(false);
-
-  useEffect(() => {
-    const preselect = (event) => setValues((current) => ({ ...current, eventType: event.detail }));
-    const prefill = (event) => { setValues((current) => ({ ...current, ...event.detail })); setErrors({}); setSubmitted(false); };
-    window.addEventListener('preselect-event', preselect);
-    window.addEventListener('prefill-quote', prefill);
-    return () => { window.removeEventListener('preselect-event', preselect); window.removeEventListener('prefill-quote', prefill); };
-  }, []);
 
   const updateValue = (event) => {
     const { name, value } = event.target;
@@ -39,7 +32,7 @@ export default function Contact() {
   const fieldProps = (name) => ({ id: name, name, value: values[name], onChange: updateValue, 'aria-invalid': Boolean(errors[name]), 'aria-describedby': errors[name] ? `${name}-error` : undefined });
 
   return <section className="contact section-pad" id="contact">
-    <div className="contact-intro"><p className="eyebrow" data-reveal>Contact</p><h2 data-reveal>Let's plan<br />your <em>celebration.</em></h2><p className="contact-lede" data-reveal>Tell us about your event and we'll be in touch.</p><span className="contact-flourish" aria-hidden="true">F</span></div>
+    <div className="contact-intro"><p className="eyebrow" data-reveal>Questions?</p><h2 data-reveal>Say<br /><em>hello.</em></h2><p className="contact-lede" data-reveal>Prefer to talk first? Send us a message and we'll be in touch.</p><button type="button" className="text-link contact-quote-link" onClick={() => openQuote()} data-reveal>Or build a quote instead <ArrowRight size={15} aria-hidden="true" /></button><span className="contact-flourish" aria-hidden="true">F</span></div>
     <div className="contact-form-wrap" data-reveal><div className="form-topline"><span>Inquiry form</span><span>Demo</span></div>
       {submitted ? <div className="form-success" role="status" aria-live="polite"><span className="success-mark"><Check size={22} strokeWidth={1.5} /></span><p className="eyebrow">Thank you</p><h3>Your inquiry is ready.</h3><p>This is a website preview, so no message has been sent yet.</p><button type="button" className="text-link" onClick={() => { setValues(emptyForm); setSubmitted(false); }}>Start another inquiry <ArrowRight size={15} /></button></div> : <form className="inquiry-form" onSubmit={handleSubmit} noValidate>
         <div className="form-row">
