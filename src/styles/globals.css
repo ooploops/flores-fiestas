@@ -372,6 +372,13 @@ a { color: inherit; text-decoration: none; }
 }
 
 /* Quote builder is the primary path: buttons that replaced links */
+.quote-bottom { justify-content: flex-end; }
+.quote-cards-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; }
+.quote-cards-4 .quote-card-img { aspect-ratio: 4 / 3; }
+.quote-cards-4 .quote-card-body strong { font-size: 22px; }
+.quote-option small { display: block; margin-top: 2px; color: var(--muted); font-size: 12px; }
+@media (max-width: 1050px) { .quote-cards-4 { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 700px) { .quote-cards-4 { grid-template-columns: 1fr 1fr; gap: 10px; } .quote-cards-4 .quote-card-body { padding: 10px 12px 12px; } .quote-cards-4 .quote-card-body strong { font-size: 19px; } .quote-cards-4 .quote-card-body small { font-size: 12px; } }
 button.nav-inquire { background: transparent; font-family: inherit; cursor: pointer; }
 button.nav-inquire:hover { background: var(--gold-dark); }
 button.service-link { padding: 0; background: transparent; cursor: pointer; }
@@ -426,6 +433,12 @@ button.lightbox-plan { padding: 0 0 5px; border: 0; border-bottom: 1px solid var
   .process-step:not(:last-child)::after { transform: scaleY(0); transform-origin: top; }
   .process-step:has(+ .process-step.is-active)::after { transform: scaleY(1); }
 }
+
+/* Estimate: price sits evenly between the eyebrow and the "per person" label at every size */
+.quote-step .eyebrow.quote-summary-eyebrow { margin-bottom: 8px; }
+.quote-per:not(.quote-per-text) { --quote-fs: clamp(64px, 9vw, 120px); margin-top: 0; font-size: var(--quote-fs); }
+.quote-per:not(.quote-per-text) span { margin-top: calc(11.6px + var(--quote-fs) * .131); }
+@media (max-height: 720px) { .quote-per:not(.quote-per-text) { --quote-fs: clamp(48px, 7vw, 80px); } }
 
 @media (prefers-reduced-motion: reduce) {
 	*, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }

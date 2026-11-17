@@ -2,11 +2,11 @@ import { useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { ArrowLeft, ArrowRight, Check, X } from 'lucide-react';
 import { siteContent } from '../data/siteContent.js';
-import { MAX_GUESTS, buildQuote, desserts, menus, money, services } from '../data/pricing.js';
+import { JUG_SERVES, MAX_GUESTS, buildQuote, desserts, drinks, menus, money, services } from '../data/pricing.js';
 import { asset } from '../data/asset.js';
 import { openQuote } from '../data/quote.js';
 
-const initial = { event: '', guests: '', services: [], menus: [], dishes: [], desserts: [], pieces: 3, name: '', email: '', phone: '' };
+const initial = { event: '', guests: '', services: [], menus: [], dishes: [], drinks: [], desserts: [], pieces: 3, name: '', email: '', phone: '' };
 const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const PIECE_CHOICES = [2, 3, 4, 5, 6];
 const GUEST_CHIPS = [25, 50, 100, 150, 200, 250];
@@ -14,6 +14,7 @@ const GUEST_CHIPS = [25, 50, 100, 150, 200, 250];
 const getSteps = (a) => [
   'welcome', 'event', 'guests', 'services',
   ...(a.services.includes('catering') ? ['menus', ...menus.filter((m) => a.menus.includes(m.id)).map((m) => `dishes-${m.id}`)] : []),
+  ...(a.services.includes('drinks') ? ['drinks'] : []),
   ...(a.services.includes('dessert') ? ['desserts', 'pieces'] : []),
   'summary', 'details', 'done',
 ];
@@ -30,6 +31,7 @@ function isValid(stepId, a) {
   if (stepId === 'menus') return a.menus.length > 0;
   if (stepId.startsWith('dishes-')) return menus.find((m) => `dishes-${m.id}` === stepId).dishes.some((d) => a.dishes.includes(d.id));
   if (stepId === 'desserts') return a.desserts.length > 0;
+  if (stepId === 'drinks') return a.drinks.length > 0;
   if (stepId === 'details') return a.name.trim().length > 0 && EMAIL.test(a.email);
   return true;
 }
@@ -41,6 +43,7 @@ function Overlay({ onClose, preset }) {
   const [stepId, setStepId] = useState(preset?.step || 'welcome');
   const [dir, setDir] = useState('fwd');
   const dialogRef = useRef(null);
+  const stageRef = useRef(null);
   const stepRef = useRef(null);
   const timer = useRef(null);
 
@@ -49,7 +52,6 @@ function Overlay({ onClose, preset }) {
   const valid = isValid(stepId, a);
   const n = guestCount(a);
   const quote = buildQuote({ ...a, guests: n });
-  const showRunning = n > 0 && quote.lines.length > 0 && !['welcome', 'event', 'guests', 'summary', 'details', 'done'].includes(stepId);
 
   const go = (delta) => {
     const target = steps[index + delta];
@@ -67,6 +69,7 @@ function Overlay({ onClose, preset }) {
 
   useEffect(() => () => clearTimeout(timer.current), []);
   useEffect(() => {
+    stageRef.current?.scrollTo({ top: 0 });
     const target = stepRef.current;
     (target?.querySelector('input') || target)?.focus({ preventScroll: true });
   }, [stepId]);
@@ -77,6 +80,7 @@ function Overlay({ onClose, preset }) {
     if (stepId === 'menus') return menus.map((m) => () => toggle('menus', m.id));
     if (stepId.startsWith('dishes-')) return menus.find((m) => `dishes-${m.id}` === stepId).dishes.map((d) => () => toggle('dishes', d.id));
     if (stepId === 'desserts') return desserts.map((d) => () => toggle('desserts', d.id));
+    if (stepId === 'drinks') return drinks.map((d) => () => toggle('drinks', d.id));
     if (stepId === 'pieces') return PIECE_CHOICES.map((p) => () => setA((c) => ({ ...c, pieces: p })));
     return [];
   })();
@@ -118,11 +122,13 @@ function Overlay({ onClose, preset }) {
       <div className="quote-chips">{GUEST_CHIPS.map((c) => <button type="button" key={c} className={`quote-chip${Number(a.guests) === c ? ' is-selected' : ''}`} onClick={() => setA((s) => ({ ...s, guests: String(c) }))}>{c}</button>)}</div>
       {cont()}</>;
   } else if (stepId === 'services') {
-    body = <>{head('What do you need?', 'Choose one or both.')}<div className="quote-cards quote-cards-2">{services.map((s, i) => <button type="button" key={s.id} className={`quote-card${a.services.includes(s.id) ? ' is-selected' : ''}`} aria-pressed={a.services.includes(s.id)} onClick={() => toggle('services', s.id)}><span className="quote-card-img"><img src={s.image} alt="" style={{ objectPosition: s.focus }} />{key(i)}{check}</span><span className="quote-card-body"><strong>{s.name}</strong><small>{s.blurb}</small></span></button>)}</div>{cont()}</>;
+    body = <>{head('What do you need?', 'Choose any that apply.')}<div className="quote-cards quote-cards-4">{services.map((s, i) => <button type="button" key={s.id} className={`quote-card${a.services.includes(s.id) ? ' is-selected' : ''}`} aria-pressed={a.services.includes(s.id)} onClick={() => toggle('services', s.id)}><span className="quote-card-img"><img src={s.image} alt="" style={{ objectPosition: s.focus }} />{key(i)}{check}</span><span className="quote-card-body"><strong>{s.name}</strong><small>{s.blurb}</small></span></button>)}</div>{cont()}</>;
   } else if (stepId === 'menus') {
     body = <>{head('Which menu?', 'Choose one or both.')}<div className="quote-cards quote-cards-2">{menus.map((m, i) => <button type="button" key={m.id} className={`quote-card${a.menus.includes(m.id) ? ' is-selected' : ''}`} aria-pressed={a.menus.includes(m.id)} onClick={() => toggle('menus', m.id)}><span className="quote-card-img"><img src={m.image} alt="" />{key(i)}{check}</span><span className="quote-card-body"><strong>{m.name}</strong><small>{m.dishes.map((d) => d.name).join(', ')}</small></span></button>)}</div>{cont()}</>;
   } else if (hasMenu) {
     body = <><div className="quote-split"><span className="quote-split-img"><img src={hasMenu.image} alt="" /></span><div>{head(`What from the ${hasMenu.name} menu?`, 'Priced per person. Choose as many as you like.')}<div className="quote-options">{hasMenu.dishes.map((d, i) => <button type="button" key={d.id} className={`quote-option${a.dishes.includes(d.id) ? ' is-selected' : ''}`} aria-pressed={a.dishes.includes(d.id)} onClick={() => toggle('dishes', d.id)}>{key(i)}<span>{d.name}</span><Price value={d.price} unit="/person" />{check}</button>)}</div>{cont()}</div></div></>;
+  } else if (stepId === 'drinks') {
+    body = <><div className="quote-split"><span className="quote-split-img"><img src={asset('/images/quote/drinks.jpg')} alt="" /></span><div>{head('Pick your drinks.', `Large jugs serve about ${JUG_SERVES} guests. Choose as many as you like.`)}<div className="quote-options">{drinks.map((d, i) => <button type="button" key={d.id} className={`quote-option${a.drinks.includes(d.id) ? ' is-selected' : ''}`} aria-pressed={a.drinks.includes(d.id)} onClick={() => toggle('drinks', d.id)}>{key(i)}<span>{d.name}<small>{d.kind === 'jug' ? 'Large jug' : 'Self-serve, priced per person'}</small></span><Price value={d.price} unit={d.kind === 'jug' ? '/jug' : '/person'} />{check}</button>)}</div>{cont()}</div></div></>;
   } else if (stepId === 'desserts') {
     body = <>{head('Build your dessert table.', 'Priced per piece. Choose as many as you like.')}<div className="quote-tiles">{desserts.map((d, i) => <button type="button" key={d.id} className={`quote-tile${a.desserts.includes(d.id) ? ' is-selected' : ''}`} aria-pressed={a.desserts.includes(d.id)} onClick={() => toggle('desserts', d.id)}><span className="quote-tile-img"><img src={d.image} alt="" loading="lazy" />{key(i)}{check}</span><span className="quote-tile-body"><strong>{d.name}</strong><Price value={d.price} unit="/piece" /></span></button>)}</div>{cont()}</>;
   } else if (stepId === 'pieces') {
@@ -131,10 +137,10 @@ function Overlay({ onClose, preset }) {
   } else if (stepId === 'summary') {
     const decor = a.services.includes('decor');
     const priced = quote.lines.length > 0;
-    body = <><p className="eyebrow">Your estimate</p><h2 id="quote-title" className="visually-hidden">Your quote estimate</h2>
+    body = <><p className="eyebrow quote-summary-eyebrow">Your estimate</p><h2 id="quote-title" className="visually-hidden">Your quote estimate</h2>
       <div className="quote-summary"><div className="quote-hero-price" aria-live="polite">
         {priced ? <><p className="quote-per">{money(quote.perGuest)}<span> per person</span></p><p className="quote-total">{money(quote.total)} total for {n} guests</p></> : <><p className="quote-per quote-per-text">Custom quote</p><p className="quote-total">We'll price your decor together for {n} guests.</p></>}
-        <p className="quote-fine">{priced ? `Estimate based on your choices.${decor ? ' Decor and tablescapes are priced separately.' : ''} ` : ''}Final pricing is confirmed with Flores Events.</p>
+        <p className="quote-fine">{priced ? `Estimate based on your choices, before tax.${decor ? ' Decor and tablescapes are priced separately.' : ''} ` : ''}Final pricing is confirmed with Flores Events.</p>
         <div className="quote-actions"><button type="button" className="quote-btn" onClick={() => go(1)}>Request this quote <ArrowRight size={16} aria-hidden="true" /></button><button type="button" className="quote-link" onClick={() => { setA(initial); setDir('back'); setStepId('welcome'); }}>Start over</button></div></div>
       <ul className="quote-lines">{quote.lines.map((l) => <li key={l.key}><span>{l.label}{l.detail && <small>{l.detail}</small>}</span><span className="quote-line-price"><b>{money(l.perGuest)}</b> per person<small>{money(l.total)}</small></span></li>)}{decor && <li><span>Decor and tablescapes<small>Priced after we talk</small></span></li>}</ul></div></>;
   } else if (stepId === 'details') {
@@ -158,9 +164,8 @@ function Overlay({ onClose, preset }) {
     <div className="quote-overlay" role="dialog" aria-modal="true" aria-labelledby="quote-title" ref={dialogRef} onKeyDown={onKeyDown}>
       <div className="quote-progress" aria-hidden="true"><span style={{ transform: `scaleX(${progress})` }} /></div>
       <header className="quote-top"><img src={asset('/images/logo-events.png')} alt="Flores Events" width="1700" height="980" /><button type="button" className="quote-close" aria-label="Close quote builder" onClick={onClose}><X size={20} /></button></header>
-      <div className="quote-stage"><section key={stepId} ref={stepRef} tabIndex={-1} className={`quote-step is-${dir}`}>{body}</section></div>
+      <div className="quote-stage" ref={stageRef}><section key={stepId} ref={stepRef} tabIndex={-1} className={`quote-step is-${dir}`}>{body}</section></div>
       <footer className="quote-bottom">
-        <div className="quote-running" aria-live="polite">{showRunning && <><b>{money(quote.perGuest)}<span> per person</span></b><small>{money(quote.total)} total</small></>}</div>
         <div className="quote-nav"><button type="button" aria-label="Previous question" disabled={index === 0 || stepId === 'done'} onClick={() => go(-1)}><ArrowLeft size={18} /></button><button type="button" aria-label="Next question" disabled={!valid || ['summary', 'details', 'done'].includes(stepId)} onClick={next}><ArrowRight size={18} /></button></div>
       </footer>
     </div>
@@ -194,8 +199,8 @@ export default function QuoteSection() {
           <p className="eyebrow" data-reveal>Get a quote</p>
           <h2 data-reveal>Build your <em>package.</em></h2>
           <span className="heading-rule" aria-hidden="true" />
-          <p className="quote-lede" data-reveal>Pick your menu and desserts, then see your price per person.</p>
-          <ul className="quote-points" data-reveal><li>Up to {MAX_GUESTS} guests</li><li>Italian and Mexican menus</li><li>Dessert tables, built your way</li></ul>
+          <p className="quote-lede" data-reveal>Pick your menu, drinks, and desserts, then see your price per person.</p>
+          <ul className="quote-points" data-reveal><li>Up to {MAX_GUESTS} guests</li><li>Italian and Mexican menus</li><li>Optional drinks by the jug</li><li>Dessert tables, built your way</li></ul>
           <button ref={opener} type="button" className="quote-btn" onClick={() => openQuote()} data-reveal>Start building <ArrowRight size={16} aria-hidden="true" /></button>
         </div>
         <div className="quote-collage" aria-hidden="true">
