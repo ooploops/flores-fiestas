@@ -24,43 +24,42 @@ export const menus = [
   {
     id: 'italian', name: 'Italian', image: '/images/quote/menu-italian.jpg',
     dishes: [
-      { id: 'lasagna', name: 'Lasagna', cost: 8, labor: true },
-      { id: 'zuppa', name: 'Zuppa Toscana', cost: 4.5 },
-      { id: 'rolls', name: 'Bread rolls', cost: 1.5 },
-      { id: 'salad', name: 'Salad', cost: 3 },
+      { id: 'lasagna', name: 'Lasagna', cost: 8, labor: true, desc: 'Layers of tender pasta, savory sauce, and melted cheese, baked until golden and bubbling.' },
+      { id: 'zuppa', name: 'Zuppa Toscana', cost: 4.5, desc: 'A hearty, creamy soup with sausage, potatoes, and tender greens, simmered low and slow.' },
+      { id: 'rolls', name: 'Bread rolls', cost: 1.5, desc: 'Warm, soft rolls with a golden crust, made for soaking up every last drop.' },
+      { id: 'salad', name: 'Salad', cost: 3, desc: 'Crisp, fresh greens tossed to brighten the plate next to something rich.' },
     ].map(priced),
   },
   {
     id: 'mexican', name: 'Mexican', image: '/images/quote/menu-mexican.jpg',
     dishes: [
-      { id: 'menudo', name: 'Menudo', cost: 5.5, labor: true },
-      { id: 'pozole', name: 'Pozole', cost: 5.5, labor: true },
-      { id: 'birria', name: 'Birria', cost: 7, labor: true },
-      { id: 'pupusas', name: 'Pupusas', cost: 5, labor: true },
-      { id: 'salsa', name: 'Mango salsa and chips', cost: 2.75 },
-      { id: 'beans-rice', name: 'Beans and rice', cost: 3 },
+      { id: 'menudo', name: 'Menudo', cost: 5.5, labor: true, desc: 'A slow-simmered, deeply savory soup in a bold red chile broth, made the traditional way.' },
+      { id: 'pozole', name: 'Pozole', cost: 5.5, labor: true, desc: 'A comforting, slow-cooked hominy soup in a rich, flavorful broth, ready for your favorite toppings.' },
+      { id: 'birria', name: 'Birria', cost: 7, labor: true, desc: 'Tender, slow-braised meat in a deep, chile-spiced broth. Rich, juicy, and worth the wait.' },
+      { id: 'pupusas', name: 'Pupusas', cost: 5, labor: true, desc: 'Handmade corn pockets griddled until golden and crisp at the edges, with a warm, melty filling.' },
+      { id: 'salsa', name: 'Mango salsa and chips', cost: 2.75, desc: 'Sweet, juicy mango with a bright, fresh kick, served with crunchy chips for scooping.' },
+      { id: 'beans-rice', name: 'Beans and rice', cost: 3, desc: 'Creamy, savory beans with fluffy rice. The comforting side that goes with everything.' },
     ].map(priced),
   },
 ].map(withImage);
 
 export const desserts = [
-  { id: 'flans', name: 'Mini flans', cost: 1.75, image: '/images/quote/d-flan.jpg' },
-  { id: 'cheesecakes', name: 'Mini cheesecakes', cost: 2.25, image: '/images/quote/d-cheesecake.jpg' },
-  { id: 'pudding', name: 'Pudding cups', cost: 1.5, image: '/images/quote/d-pudding.jpg' },
-  { id: 'hearts', name: 'Chocolate hearts', cost: 1.25, image: '/images/quote/d-hearts.jpg' },
-  { id: 'strawberries', name: 'Chocolate covered strawberries', cost: 1.75, image: '/images/quote/d-strawberries.jpg' },
-  { id: 'cannoli', name: 'Cannoli', cost: 2, image: '/images/quote/d-cannoli.jpg' },
-  { id: 'pretzels', name: 'Chocolate covered pretzels', cost: 0.9, image: '/images/quote/d-pretzels.jpg' },
-  { id: 'cake', name: 'Chocolate cake', cost: 2.25, image: '/images/quote/d-cake.jpg' },
+  { id: 'flans', name: 'Mini flans', cost: 1.75, desc: 'Silky vanilla custard under a glossy caramel finish.', image: '/images/quote/d-flan.jpg' },
+  { id: 'cheesecakes', name: 'Mini cheesecakes', cost: 2.25, desc: 'Creamy, rich, just-sweet-enough bites on a crumbly base.', image: '/images/quote/d-cheesecake.jpg' },
+  { id: 'pudding', name: 'Pudding cups', cost: 1.5, desc: 'Smooth, spoonable pudding in sweet little individual cups.', image: '/images/quote/d-pudding.jpg' },
+  { id: 'hearts', name: 'Chocolate hearts', cost: 1.25, desc: 'Smooth, glossy chocolate shaped into hearts, made for sharing.', image: '/images/quote/d-hearts.jpg' },
+  { id: 'strawberries', name: 'Chocolate covered strawberries', cost: 1.75, desc: 'Juicy, ripe strawberries dipped in rich chocolate.', image: '/images/quote/d-strawberries.jpg' },
+  { id: 'cannoli', name: 'Cannoli', cost: 2, desc: 'Crisp, golden shells piled with sweet, creamy filling.', image: '/images/quote/d-cannoli.jpg' },
+  { id: 'pretzels', name: 'Chocolate covered pretzels', cost: 0.9, desc: 'Salty crunch meets smooth, sweet chocolate.', image: '/images/quote/d-pretzels.jpg' },
+  { id: 'cake', name: 'Chocolate cake', cost: 2.25, desc: 'Moist, deeply chocolatey cake, served by the piece.', image: '/images/quote/d-cake.jpg' },
 ].map(priced).map(withImage);
 
 // Jugs are priced per jug and sized by guest count; the coffee station is priced per guest.
 export const drinks = [
-  { id: 'horchata', name: 'Horchata', kind: 'jug', cost: 30 },
-  { id: 'jamaica', name: 'Jamaica', kind: 'jug', cost: 24 },
-  { id: 'agua-fresca', name: 'Agua fresca', kind: 'jug', cost: 24 },
-  { id: 'mocha', name: 'Mocha coffee drink', kind: 'jug', cost: 40 },
-  { id: 'coffee-station', name: 'Self-serve coffee station', kind: 'guest', cost: 1.5 },
+  { id: 'horchata', name: 'Horchata', kind: 'jug', cost: 30, desc: 'Cool, creamy, and cinnamon-sweet. A classic that goes down easy on a warm day.' },
+  { id: 'jamaica', name: 'Jamaica', kind: 'jug', cost: 24, desc: 'Bright ruby-red hibiscus tea, tart and refreshing, served ice cold.' },
+  { id: 'mocha', name: 'Mocha coffee drink', kind: 'jug', cost: 40, desc: 'Rich coffee meets chocolate in a smooth, sweet, ready-to-pour crowd pleaser.' },
+  { id: 'coffee-station', name: 'Self-serve coffee station', kind: 'guest', cost: 1.5, desc: 'Fresh, hot coffee your guests can pour whenever they like, all event long.' },
 ].map(priced);
 
 export const money = (amount) => {

@@ -440,6 +440,15 @@ button.lightbox-plan { padding: 0 0 5px; border: 0; border-bottom: 1px solid var
 .quote-per:not(.quote-per-text) span { margin-top: calc(11.6px + var(--quote-fs) * .131); }
 @media (max-height: 720px) { .quote-per:not(.quote-per-text) { --quote-fs: clamp(48px, 7vw, 80px); } }
 
+/* Footer: keep the service-area line visible on phones */
+@media (max-width: 700px) { .footer-bottom span:last-child { display: inline; } }
+
+/* Item descriptions in the quote builder */
+.quote-option small { margin-top: 4px; color: #5b564e; font-size: 13px; line-height: 1.45; }
+.quote-option small.quote-meta { margin-top: 5px; color: var(--gold-dark); font-size: 11px; font-weight: 700; letter-spacing: .09em; text-transform: uppercase; }
+.quote-option { padding-top: 14px; padding-bottom: 14px; }
+.quote-tile-body small { display: block; margin: 3px 0 6px; color: #5b564e; font-size: 12px; line-height: 1.4; }
+
 @media (prefers-reduced-motion: reduce) {
 	*, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
 	:root { scroll-behavior: auto; }

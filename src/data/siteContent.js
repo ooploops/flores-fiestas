@@ -3,7 +3,7 @@ import { asset } from './asset.js';
 export const siteContent = {
   brand: {
     name: 'Flores Events',
-    statement: 'Catering, desserts, and decor.',
+    statement: 'Catering, desserts, and decor in the Antelope Valley.',
     email: '[Email address to be added]',
     phone: '[Phone number to be added]',
     social: '[Social profile to be added]',

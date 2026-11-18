@@ -13,7 +13,7 @@ export function Hero() {
     <div className="hero-copy">
       <p className="eyebrow hero-eyebrow">Flores Events <span /> Catering, Desserts &amp; Decor</p>
       <h1 id="hero-title">Every celebration,<br /><em>beautifully</em> styled.</h1>
-      <div className="hero-lower"><p>Catering, dessert tables, and decor for weddings, birthdays, and every occasion in between.</p>
+      <div className="hero-lower"><p>Catering, dessert tables, and decor for parties in Lancaster, Palmdale, Rosamond, Acton, and the rest of the Antelope Valley.</p>
         <div className="hero-actions"><button type="button" className="text-link" onClick={() => openQuote()}>Build your quote <ArrowRight size={16} aria-hidden="true" /></button><a className="text-link hero-secondary" href="#gallery">See our work</a></div>
       </div>
     </div>
@@ -30,7 +30,7 @@ export function Hero() {
 export function Introduction() {
   return <section className="introduction section-pad" id="introduction">
     <div className="intro-grid"><SectionHeading eyebrow="About us" className="intro-heading">Great parties start with <em>the details.</em></SectionHeading>
-      <div className="intro-copy" data-reveal><p>Flores Events caters the food and styles dessert tables, decor, and table settings. We keep everything personal, warm, and elegant.</p><a href="#process" className="underlined-link">How it works <span aria-hidden="true">↗</span></a></div>
+      <div className="intro-copy" data-reveal><p>Flores Events caters the food and styles dessert tables, decor, and table settings for birthdays, weddings, quinceañeras, and more across the Antelope Valley. We keep everything personal, warm, and elegant.</p><a href="#process" className="underlined-link">How it works <span aria-hidden="true">↗</span></a></div>
     </div>
     <div className="intro-art" data-reveal>
       <img className="cover-photo" src={siteContent.intro.image} alt={siteContent.intro.alt} loading="lazy" style={{ objectPosition: siteContent.intro.focus }} />
@@ -41,7 +41,7 @@ export function Introduction() {
 
 export function Services() {
   return <section className="services section-pad" id="services">
-    <div className="services-heading-row"><SectionHeading eyebrow="Services">What we <em>offer.</em></SectionHeading><p className="services-intro" data-reveal>Choose one, or combine them.</p></div>
+    <div className="services-heading-row"><SectionHeading eyebrow="Services">What we <em>offer.</em></SectionHeading><p className="services-intro" data-reveal>Choose one, or combine them. We deliver and set up anywhere in the Antelope Valley.</p></div>
     <div className="service-list">{siteContent.services.map((service) => <article className="service-row" key={service.number} data-reveal>
       <span className="service-number">{service.number}</span>
       <div className="service-art" aria-hidden="true"><img className="cover-photo" src={service.image} alt="" loading="lazy" style={{ objectPosition: service.focus }} /><span className="service-art-caption">Stock photo placeholder</span></div>

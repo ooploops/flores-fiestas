@@ -12,6 +12,6 @@ export default function Footer() {
     </div>
     <ul className="footer-services" aria-label="Services"><li>Catering</li><li>Desserts</li><li>Decor</li></ul>
     <div className="footer-large-type" aria-hidden="true">Flores Events</div>
-    <div className="footer-bottom"><span>© {new Date().getFullYear()} Flores Events</span></div>
+    <div className="footer-bottom"><span>© {new Date().getFullYear()} Flores Events</span><span>Serving the Antelope Valley, CA</span></div>
   </footer>;
 }
